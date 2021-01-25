@@ -20,4 +20,3 @@ INSERT INTO `Mood` VALUES (null, 'Ok');
 INSERT INTO `JournalEntry` VALUES (null, 'Python', 'We are learning Python right now. The learning style is very different on the back end', '1/19/2021', 4);
 INSERT INTO `JournalEntry` VALUES (null, 'Python', 'Query strings are very powerful', '1/19/2021', 1);
 INSERT INTO `JournalEntry` VALUES (null, 'SQL', 'The SQL practice lessons frustrated me very much', '1/19/2021', 3);
-

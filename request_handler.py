@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from entries import get_all_entries, get_single_entry, delete_entry, get_entries_by_search_terms
+from entries import get_all_entries, get_single_entry, delete_entry, get_entries_by_search_terms, create_entry
 from moods import get_all_moods
 import json
 
@@ -84,6 +84,31 @@ class HandleRequests(BaseHTTPRequestHandler):
                 response = get_entries_by_search_terms(value)
 
         self.wfile.write(response.encode())
+
+    # Here's a method on the class that overrides the parent's method.
+    # It handles any POST request.
+    def do_POST(self):
+        self._set_headers(201)
+        content_len = int(self.headers.get('content-length', 0))
+        post_body = self.rfile.read(content_len)
+
+        # Convert JSON string to a Python dictionary
+        post_body = json.loads(post_body)
+
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+        # Initialize new animal
+        new_entry = None
+
+        # Add a new entry to the list. Don't worry about
+        # the orange squiggle, you'll define the create_entry
+        # function next.
+        if resource == "entries":
+            new_entry = create_entry(post_body)
+
+        # Encode the new entry and send in response
+        self.wfile.write(f"{new_entry}".encode())
 
     def do_DELETE(self):
         # Set a 204 response code
